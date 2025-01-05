@@ -69,7 +69,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        DB::beginTransaction();
+        try {
+            $category = Category::findOrFail($id);
+            $category->update([
+                "name" => $request->name,
+            ]);
+            DB::commit();
+            return redirect()->route('category.index')->with('success', 'Category updated successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Failed to update category: ' . $e->getMessage()]);
+        }
     }
 
     /**
