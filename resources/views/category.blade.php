@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Products') }}
+            {{ __('Category') }}
         </h2>
     </x-slot>
 
@@ -48,7 +48,7 @@
                                                 <path clip-rule="evenodd" fill-rule="evenodd"
                                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                             </svg>
-                                            Add product
+                                            Add Category
                                         </button>
                                         <div class="flex items-center space-x-3 w-full md:w-auto">
                                             <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
@@ -70,38 +70,6 @@
                                                         all</a>
                                                 </div>
                                             </div>
-                                            <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                                                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                                type="button">
-                                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                                    class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20"
-                                                    fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                                Filter
-                                                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor"
-                                                    viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                                    aria-hidden="true">
-                                                    <path clip-rule="evenodd" fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                </svg>
-                                            </button>
-                                            <div id="filterDropdown"
-                                                class="z-10 hidden w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                                                <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                                                    Category</h6>
-                                                <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                                    <li class="flex items-center">
-                                                        <input id="apple" type="checkbox" value=""
-                                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                        <label for="apple"
-                                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Apple
-                                                            (56)</label>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -110,12 +78,8 @@
                                         <thead
                                             class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
-                                                <th scope="col" class="px-4 py-4">Product name</th>
-                                                <th scope="col" class="px-4 py-3">Category</th>
-                                                <th scope="col" class="px-4 py-3">Wood Type</th>
-                                                <th scope="col" class="px-4 py-3">Description</th>
-                                                <th scope="col" class="px-4 py-3">Image</th>
-                                                <th scope="col" class="px-4 py-3">Price</th>
+                                                <th scope="col" class="px-4 py-4">Name</th>
+                                                <th scope="col" class="px-4 py-4">Created</th>
                                                 <th scope="col" class="px-4 py-3">
                                                     <span class="sr-only">Actions</span>
                                                 </th>
@@ -125,19 +89,11 @@
                                             <tr class="border-b dark:border-gray-700">
                                                 <th scope="row"
                                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    Monitor BenQ EX2710Q</th>
-                                                <td class="px-4 py-3">TV/Monitor</td>
-                                                <td class="px-4 py-3">BenQ</td>
-                                                <td class="px-4 py-3 max-w-[12rem] truncate">What is a product
-                                                    description? A product description describes a product.</td>
-                                                <td class="px-4 py-3">
-                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZM6A7gZHvE8wVNYfULKf0qFSq9OQ7NiQKuA&s"
-                                                        alt="image" class="h-14 w-14">
-                                                </td>
-                                                <td class="px-4 py-3">$499</td>
+                                                    Apple iMac 27&#34;</th>
+                                                <td class="px-4 py-3">PC</td>
                                                 <td class="px-4 py-3 flex items-center justify-end">
-                                                    <button id="benq-ex2710q-dropdown-button"
-                                                        data-dropdown-toggle="benq-ex2710q-dropdown"
+                                                    <button id="apple-imac-27-dropdown-button"
+                                                        data-dropdown-toggle="apple-imac-27-dropdown"
                                                         class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                                         type="button">
                                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
@@ -146,10 +102,10 @@
                                                                 d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                                         </svg>
                                                     </button>
-                                                    <div id="benq-ex2710q-dropdown"
+                                                    <div id="apple-imac-27-dropdown"
                                                         class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                                         <ul class="py-1 text-sm"
-                                                            aria-labelledby="benq-ex2710q-dropdown-button">
+                                                            aria-labelledby="apple-imac-27-dropdown-button">
                                                             <li>
                                                                 <button type="button"
                                                                     data-modal-target="updateProductModal"
@@ -219,7 +175,7 @@
                                 <!-- Modal header -->
                                 <div
                                     class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Product</h3>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Category</h3>
                                     <button type="button"
                                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                         data-modal-target="createProductModal" data-modal-toggle="createProductModal">
@@ -233,85 +189,14 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action="{{ route('products.store') }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    @csrf
+                                <form action="#">
                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                         <div>
                                             <label for="name"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                                             <input type="text" name="name" id="name"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Type product name" required>
-                                        </div>
-                                        <div>
-                                            <label for="wood_type"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wood
-                                                Type</label>
-                                            <input type="text" name="wood_type" id="wood_type"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Product wood type" required>
-                                        </div>
-                                        <div>
-                                            <label for="price"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                            <input type="number" name="price" id="price"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="$2999" required>
-                                        </div>
-                                        <div>
-                                            <label for="discount_price"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount
-                                                Price</label>
-                                            <input type="number" name="discount_price" id="discount_price"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="$2499">
-                                        </div>
-                                        <div>
-                                            <label for="category"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                            <select id="category" name="category_id"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                required>
-                                                <option value="">Select category</option>
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <label for="tags"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
-                                            <input id="tags" name="tags"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Type tags and
-                                                press Enter.</p>
-                                        </div>
-
-                                        <div class="sm:col-span-2">
-                                            <label for="images"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload
-                                                Images (3 files)</label>
-                                            <input type="file" id="images" name="images[]" accept="image/*"
-                                                multiple required
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Please upload
-                                                exactly 3 images.</p>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <label for="short_description"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Short
-                                                Description</label>
-                                            <textarea id="short_description" rows="2" name="short_description"
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Write short description here" required></textarea>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <label for="description"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                                            <textarea id="description" rows="4" name="description"
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Write full description here" required></textarea>
+                                                placeholder="Type product name" required="">
                                         </div>
                                     </div>
                                     <button type="submit"
@@ -322,13 +207,12 @@
                                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                                 clip-rule="evenodd" />
                                         </svg>
-                                        Add new product
+                                        Add new category
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-
                     <!-- Update modal -->
                     <div id="updateProductModal" tabindex="-1" aria-hidden="true"
                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -522,17 +406,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const tagInput = document.querySelector('#tags');
-        const tagify = new Tagify(tagInput, {
-            whitelist: @json($tags->pluck('name')),
-            dropdown: {
-                maxItems: 20,
-                enabled: 0,
-                closeOnSelect: false
-            }
-        });
-    </script>
-
 </x-app-layout>
