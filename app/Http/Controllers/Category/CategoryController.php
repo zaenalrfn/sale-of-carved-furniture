@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -12,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category');
+        $categories = Category::paginate(5);
+        return view('category', compact('categories'));
     }
 
     /**
@@ -29,6 +32,20 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        DB::beginTransaction();
+        try {
+            Category::create([
+                'name' => $request->name,
+            ]);
+            DB::commit();
+            return redirect()->route('category.index')->with('success', 'Category created successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Failed to create category: ' . $e->getMessage()]);
+        }
     }
 
     /**
