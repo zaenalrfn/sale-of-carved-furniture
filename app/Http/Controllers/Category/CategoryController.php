@@ -86,6 +86,14 @@ class CategoryController extends Controller
         }
     }
 
+    public function destroyAll()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); // Nonaktifkan foreign key checks
+        Category::truncate(); // Hapus semua data di tabel categories
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;'); // Aktifkan kembali foreign key checks
+        return redirect()->route('category.index')->with('success', 'All categories deleted successfully');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

@@ -93,9 +93,13 @@
                                             <div id="actionsDropdown"
                                                 class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                                 <div class="py-1">
-                                                    <a href="#"
-                                                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
-                                                        all</a>
+                                                    <form action="{{ route('category.destroyAll') }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
+                                                            all</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,14 +148,6 @@
                                                                         data-modal-toggle="updateProductModal-{{ $category->id }}"
                                                                         class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                                         Edit
-                                                                    </button>
-                                                                </li>
-                                                                <li>
-                                                                    <button type="button"
-                                                                        data-modal-target="readProductModal-{{ $category->id }}"
-                                                                        data-modal-toggle="readProductModal-{{ $category->id }}"
-                                                                        class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
-                                                                        Preview
                                                                     </button>
                                                                 </li>
                                                                 <li>
