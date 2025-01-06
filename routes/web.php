@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     // route category
     Route::resource('category', CategoryController::class);
     Route::delete('category', [CategoryController::class, 'destroyAll'])->name('category.destroyAll');
+    Route::get('/categories/search', [CategoryController::class, 'search'])->name('category.search');
     // route profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

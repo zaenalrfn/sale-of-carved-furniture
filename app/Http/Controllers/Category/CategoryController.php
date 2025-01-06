@@ -18,13 +18,43 @@ class CategoryController extends Controller
         return view('category', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function search(Request $request)
     {
-        //
+        $output = '';
+        $query = $request->search;
+
+        if ($query) {
+            $categories = Category::where('name', 'LIKE', "%{$query}%")->get();
+
+            foreach ($categories as $category) {
+                $output .= "
+            <tr class='border-b dark:border-gray-700'>
+                <td class='px-4 py-3'>1</td>
+                <th scope='row' class='px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
+                    {$category->name}
+                </th>
+                <td class='px-4 py-3'>
+                    {$category->created_at->format('d M Y H:i')}
+                </td>
+                <td class='px-4 py-3 flex items-center justify-end'>
+                    <button id='dropdown-button-{$category->id}'
+                        data-dropdown-toggle='dropdown-{$category->id}'
+                        class='inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100'
+                        type='button'>
+                        <svg class='w-5 h-5' aria-hidden='true' fill='currentColor' viewbox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
+                            <path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z' />
+                        </svg>
+                    </button>
+                </td>
+            </tr>";
+            }
+        }
+
+        return response($output);
     }
+
+
+
 
     /**
      * Store a newly created resource in storage.
