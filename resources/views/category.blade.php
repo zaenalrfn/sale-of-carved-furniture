@@ -73,7 +73,7 @@
                                 <div
                                     class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                                     <div class="w-full md:w-1/2">
-                                        <form class="flex items-center" action="{{ route('category.index') }}"
+                                        <form class="flex items-center gap-2" action="{{ route('category.index') }}"
                                             method="GET">
                                             @csrf
                                             <label for="simple-search" class="sr-only">Search</label>
@@ -91,9 +91,20 @@
                                                 </div>
                                                 <input type="text" id="simple-search"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Search name" required=""
+                                                    placeholder="Search name" name="search"
                                                     value="{{ request('search') }}">
                                             </div>
+                                            <button type="submit"
+                                                class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                                <svg class="h-3.5 w-3.5 mr-2 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                                        d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+                                                </svg>
+
+                                                Search
+                                            </button>
                                         </form>
                                     </div>
                                     <div
@@ -308,8 +319,6 @@
 
 
                                         </tbody>
-                                        <tbody id="tbody-search"></tbody>
-                                    </table>
                                 </div>
                                 {{-- bagian paginate --}}
                                 <div class="mt-4 mb-4 px-4">
@@ -373,43 +382,8 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            let timeout = null; // Gunakan timeout untuk debounce
 
-            $('#simple-search').on('keyup', function() {
-                clearTimeout(timeout); // Hapus timeout jika user terus mengetik
 
-                let value = $(this).val().trim(); // Hapus spasi berlebih
-
-                timeout = setTimeout(() => {
-                    if (value === '') {
-                        // Jika input kosong, tampilkan tbody utama dan sembunyikan hasil pencarian
-                        $('#category-table-body').show();
-                        $('#tbody-search').hide();
-                    } else {
-                        // Jika ada input, lakukan AJAX
-                        $.ajax({
-                            type: 'GET',
-                            url: '/categories/search',
-                            data: {
-                                search: value
-                            },
-                            success: function(data) {
-                                $('#category-table-body')
-                                    .hide(); // Sembunyikan tbody utama
-                                $('#tbody-search').html(data)
-                                    .show(); // Tampilkan tbody pencarian
-                            },
-                            error: function(xhr) {
-                                console.error("Error during AJAX request", xhr);
-                            }
-                        });
-                    }
-                }, 300); // Debounce selama 300ms
-            });
-        });
-    </script>
 
 
 
