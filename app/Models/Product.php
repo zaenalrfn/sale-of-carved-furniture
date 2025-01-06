@@ -2,35 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Products extends Model
+class Product extends Model
 {
     use HasFactory;
-
+    protected $table = 'products';
     protected $fillable = [
         'name',
         'category_id',
         'description',
         'short_description',
+        'wood_type',
         'price',
         'discount_price',
     ];
 
-    // Relasi ke tabel gambar produk
     public function images()
     {
         return $this->hasMany(ProductImage::class);
     }
 
-    // Relasi ke tabel tags
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'product_tag', 'product_id', 'tag_id');
     }
 
-    // Relasi ke tabel kategori produk
     public function category()
     {
         return $this->belongsTo(Category::class);
