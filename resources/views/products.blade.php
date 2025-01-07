@@ -371,135 +371,209 @@
                                                     </div>
                                                 </div>
                                                 {{-- update modal --}}
-                                                <div id="updateProductModal{{ $product->id }}" tabindex="-1" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Update Product</h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-toggle="updateProductModal{{ $product->id }}">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <form id="image-form" action="{{ route('products.update', ['product' => $product->id]) }}" method="POST"
-                enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                    <!-- Nama -->
-                    <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input type="text" name="name" id="name" value="{{ $product->name }}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required>
-                    </div>
+                                                <div id="updateProductModal{{ $product->id }}" tabindex="-1"
+                                                    aria-hidden="true"
+                                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                    <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                                        <div
+                                                            class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                                            <div
+                                                                class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                                                                <h3
+                                                                    class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                                    Update Product</h3>
+                                                                <button type="button"
+                                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                    data-modal-toggle="updateProductModal{{ $product->id }}">
+                                                                    <svg aria-hidden="true" class="w-5 h-5"
+                                                                        fill="currentColor" viewbox="0 0 20 20"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                            clip-rule="evenodd" />
+                                                                    </svg>
+                                                                    <span class="sr-only">Close modal</span>
+                                                                </button>
+                                                            </div>
+                                                            <form id="image-form"
+                                                                action="{{ route('products.update', ['product' => $product->id]) }}"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                                                                    <!-- Nama -->
+                                                                    <div>
+                                                                        <label for="name"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                                                        <input type="text" name="name"
+                                                                            id="name"
+                                                                            value="{{ $product->name }}"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                            required>
+                                                                    </div>
 
-                    <!-- Wood Type -->
-                    <div>
-                        <label for="wood_type"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wood Type</label>
-                        <input type="text" name="wood_type" id="wood_type" value="{{ $product->wood_type }}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required>
-                    </div>
+                                                                    <!-- Wood Type -->
+                                                                    <div>
+                                                                        <label for="wood_type"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wood
+                                                                            Type</label>
+                                                                        <input type="text" name="wood_type"
+                                                                            id="wood_type"
+                                                                            value="{{ $product->wood_type }}"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                            required>
+                                                                    </div>
 
-                    <!-- Harga -->
-                    <div>
-                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                        <input type="number" name="price" id="price" value="{{ $product->price }}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required>
-                    </div>
+                                                                    <!-- Harga -->
+                                                                    <div>
+                                                                        <label for="price"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                                                                        <input type="number" name="price"
+                                                                            id="price"
+                                                                            value="{{ $product->price }}"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                            required>
+                                                                    </div>
 
-                    <!-- Discount Price -->
-                    <div>
-                        <label for="discount_price"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount Price</label>
-                        <input type="number" name="discount_price" id="discount_price"
-                            value="{{ $product->discount_price }}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    </div>
+                                                                    <!-- Discount Price -->
+                                                                    <div>
+                                                                        <label for="discount_price"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount
+                                                                            Price</label>
+                                                                        <input type="number" name="discount_price"
+                                                                            id="discount_price"
+                                                                            value="{{ $product->discount_price }}"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                                    </div>
 
-                    <!-- Kategori -->
-                    <div>
-                        <label for="category"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                        <select id="category" name="category_id"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required>
-                            <option value="">Select category</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" @if ($category->id == $product->category_id) selected @endif>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                                                                    <!-- Kategori -->
+                                                                    <div>
+                                                                        <label for="category"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                                                                        <select id="category" name="category_id"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                            required>
+                                                                            <option value="">Select category
+                                                                            </option>
+                                                                            @foreach ($categories as $category)
+                                                                                <option value="{{ $category->id }}"
+                                                                                    @if ($category->id == $product->category_id) selected @endif>
+                                                                                    {{ $category->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
 
-                    <!-- Tags -->
-                    <div class="sm:col-span-2">
-                        <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
-                        <input id="tags" name="tags"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            value="{{ json_encode($product->tags->pluck('name')) }}">
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Type tags and press Enter.</p>
-                    </div>
+                                                                    <!-- Tags -->
+                                                                    <div class="sm:col-span-2">
+                                                                        <label for="tagsUpdate{{ $product->id }}"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
+                                                                        <input id="tagsUpdate{{ $product->id }}"
+                                                                            name="tags"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                            value="{{ json_encode($product->tags->pluck('name')) }}">
+                                                                        <p
+                                                                            class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                                                            Type tags and press Enter.</p>
+                                                                    </div>
 
-                    <!-- Image Preview & Upload -->
-                    <div class="sm:col-span-2">
-                        <label for="images"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Images
-                            (Max 3 Files)</label>
-                        <div id="preview" class="mt-2 grid grid-cols-3 gap-2">
-                            @foreach ($product->images as $image)
-                                <div>
-                                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="Product Image"
-                                        class="w-full h-24 object-cover rounded-lg">
-                                </div>
-                            @endforeach
-                        </div>
-                        <input type="file" id="images" name="images[]" accept="image/*" multiple>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">You can upload up to 3 images only.</p>
-                    </div>
+                                                                    <!-- Image Preview & Upload -->
+                                                                    <div class="sm:col-span-2">
+                                                                        <label for="imagesUpdate"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                                            Update Images (Max 3 Files)
+                                                                        </label>
+                                                                        <div id="alert-image-update"></div>
 
-                    <!-- Deskripsi -->
-                    <div class="sm:col-span-2">
-                        <label for="short_description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Short
-                            Description</label>
-                        <textarea id="short_description" rows="2" name="short_description"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required>{{ $product->short_description }}</textarea>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <textarea id="description" rows="4" name="description"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required>{{ $product->description }}</textarea>
-                    </div>
-                </div>
-                <button type="submit"
-                    class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                    <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewbox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    Update product
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
+                                                                        <!-- Input Gambar 1 -->
+                                                                        <div class="mb-4">
+                                                                            <label
+                                                                                for="imageUpdate{{ $product->id }}"
+                                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
+                                                                                1</label>
+                                                                            <input type="file"
+                                                                                id="imageUpdate{{ $product->id }}"
+                                                                                name="images[]" accept="image/*"
+                                                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                                                            <img id="preview-imageUpdate{{ $product->id }}"
+                                                                                src="{{ $product->images[0]->image_path ?? '' }}"
+                                                                                class="mt-2 rounded-md max-h-48 {{ $product->images[0] ? '' : 'hidden' }}"
+                                                                                alt="Preview Image 1">
+                                                                        </div>
+
+                                                                        <!-- Input Gambar 2 -->
+                                                                        <div class="mb-4">
+                                                                            <label
+                                                                                for="imageUpdate{{ $product->id }}"
+                                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
+                                                                                2</label>
+                                                                            <input type="file"
+                                                                                id="imageUpdate{{ $product->id }}"
+                                                                                name="images[]" accept="image/*"
+                                                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                                                            <img id="preview-imageUpdate{{ $product->id }}"
+                                                                                src="{{ $product->images[1]->image_path ?? '' }}"
+                                                                                class="mt-2 rounded-md max-h-48 {{ $product->images[1] ? '' : 'hidden' }}"
+                                                                                alt="Preview Image 2">
+                                                                        </div>
+
+                                                                        <!-- Input Gambar 3 -->
+                                                                        <div class="mb-4">
+                                                                            <label
+                                                                                for="imageUpdate{{ $product->id }}"
+                                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
+                                                                                3</label>
+                                                                            <input type="file"
+                                                                                id="imageUpdate{{ $product->id }}"
+                                                                                name="images[]" accept="image/*"
+                                                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                                                            <img id="preview-imageUpdate{{ $product->id }}"
+                                                                                src="{{ $product->images[2]->image_path ?? '' }}"
+                                                                                class="mt-2 rounded-md max-h-48 {{ $product->images[2] ? '' : 'hidden' }}"
+                                                                                alt="Preview Image 3">
+                                                                        </div>
+
+                                                                        <p
+                                                                            class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                                                            You can upload up to 3 images only. Existing
+                                                                            images will be replaced if new images are
+                                                                            uploaded.
+                                                                        </p>
+                                                                    </div>
+
+
+                                                                    <!-- Deskripsi -->
+                                                                    <div class="sm:col-span-2">
+                                                                        <label for="short_description"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Short
+                                                                            Description</label>
+                                                                        <textarea id="short_description" rows="2" name="short_description"
+                                                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                            required>{{ $product->short_description }}</textarea>
+                                                                    </div>
+                                                                    <div class="sm:col-span-2">
+                                                                        <label for="description"
+                                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                                                        <textarea id="description" rows="4" name="description"
+                                                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                            required>{{ $product->description }}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="submit"
+                                                                    class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                                                    <svg class="mr-1 -ml-1 w-6 h-6"
+                                                                        fill="currentColor" viewbox="0 0 20 20"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                                            clip-rule="evenodd" />
+                                                                    </svg>
+                                                                    Update product
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             @empty
                                                 <tr>
@@ -594,23 +668,47 @@
                                             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Type tags and
                                                 press Enter.</p>
                                         </div>
+                                        <!-- Input gambar 1 -->
+                                        {{-- alert input gambar --}}
+                                        @error('images')
+                                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                        @enderror
+                                        @error('images.*')
+                                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                        @enderror
 
                                         <div class="sm:col-span-2">
-                                            <label for="images"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                Upload Images (Max 3 Files)
-                                            </label>
-                                            <div id="alert-image"></div>
-                                            <input type="file" id="images" name="images[]" accept="image/*"
-                                                multiple class="hidden" onchange="handleFileUpload(event)">
-                                            <div id="drop-zone"
-                                                class="bg-gray-50 border border-dashed border-gray-300 text-gray-500 flex justify-center items-center rounded-lg h-32 cursor-pointer">
-                                                <p class="text-center">Drag & Drop files here or click to upload</p>
-                                            </div>
-                                            <div id="preview" class="mt-4 grid grid-cols-3 gap-2"></div>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">You can upload up
-                                                to 3 images only.</p>
+                                            <label for="image1"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
+                                                1</label>
+                                            <input type="file" id="image1" name="images[]" accept="image/*"
+                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                            <img id="preview-image1" class="mt-2 rounded-md max-h-48"
+                                                style="display: none;" />
                                         </div>
+
+                                        <!-- Input gambar 2 -->
+                                        <div class="sm:col-span-2">
+                                            <label for="image2"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
+                                                2</label>
+                                            <input type="file" id="image2" name="images[]" accept="image/*"
+                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                            <img id="preview-image2" class="mt-2 rounded-md max-h-48"
+                                                style="display: none;" />
+                                        </div>
+
+                                        <!-- Input gambar 3 -->
+                                        <div class="sm:col-span-2">
+                                            <label for="image3"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
+                                                3</label>
+                                            <input type="file" id="image3" name="images[]" accept="image/*"
+                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                            <img id="preview-image3" class="mt-2 rounded-md max-h-48"
+                                                style="display: none;" />
+                                        </div>
+
 
 
                                         <div class="sm:col-span-2">
@@ -688,124 +786,100 @@
     </div>
 
     <script>
-        const tagInput = document.querySelector('#tags');
-        const tagify = new Tagify(tagInput, {
-            whitelist: @json($tags->pluck('name')),
-            dropdown: {
-                maxItems: 20,
-                enabled: 0,
-                closeOnSelect: false
-            }
+        // Untuk input tag di Create Product
+        const createTagInput = document.querySelector('#tags');
+        if (createTagInput) {
+            const createTagify = new Tagify(createTagInput, {
+                whitelist: @json($tags->pluck('name')),
+                dropdown: {
+                    maxItems: 20,
+                    enabled: 0,
+                    closeOnSelect: false
+                }
+            });
+        }
+
+        // Menginisialisasi Tagify untuk input tags per produk
+        document.querySelectorAll('[id^="tagsUpdate"]').forEach(input => {
+            const productId = input.id.split('tagsUpdate')[1]; // Mengambil ID produk dari ID input
+
+            const tagify = new Tagify(input, {
+                whitelist: @json($tags->pluck('name')), // Menyediakan list tag yang bisa dipilih
+                dropdown: {
+                    maxItems: 20,
+                    enabled: 0, // Menonaktifkan dropdown yang muncul otomatis
+                    closeOnSelect: false
+                }
+            });
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const dropZone = document.getElementById('drop-zone');
-            const fileInput = document.getElementById('images');
-            const previewContainer = document.getElementById('preview');
-            const alertImg = document.getElementById('alert-image');
-            const maxFiles = 3; // Maksimum 3 gambar
-            let currentFiles = []; // Menyimpan gambar yang dipilih
 
-            // Fungsi untuk memperbarui preview
-            function updatePreview() {
-                // Reset preview
-                previewContainer.innerHTML = '';
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+            const preview = document.getElementById(previewId);
 
-                currentFiles.forEach((file, index) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.classList.add('w-full', 'h-24', 'object-cover', 'rounded-lg');
-                        previewContainer.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                });
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
             }
+        }
 
-            // Fungsi untuk menampilkan pesan peringatan
-            function showAlert(message) {
-                alertImg.innerHTML = `
-            <div id="alert-warning" class="flex items-center p-4 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
-                <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                </svg>
-                <span class="sr-only">Info</span>
-                <div class="ms-3 text-sm font-medium">
-                    ${message}
-                </div>
-                <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 p-1.5 hover:bg-yellow-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-yellow-300 dark:hover:bg-gray-700" onclick="this.parentElement.remove();" aria-label="Close">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                </button>
-            </div>`;
-            }
+        document.getElementById('image1').addEventListener('change', function() {
+            previewImage(this, 'preview-image1');
+        });
 
-            // Fungsi untuk menangani unggahan file
-            function handleFileUpload(event) {
-                const files = event.target.files || event.dataTransfer.files;
+        document.getElementById('image2').addEventListener('change', function() {
+            previewImage(this, 'preview-image2');
+        });
 
-                // Gabungkan file baru dengan file yang sudah ada
-                const newFiles = Array.from(files);
-                const totalFiles = currentFiles.length + newFiles.length;
-
-                if (totalFiles > maxFiles) {
-                    showAlert(`You can only upload up to ${maxFiles} images.`);
-                    return;
-                }
-
-                currentFiles = currentFiles.concat(newFiles).slice(0, maxFiles);
-                updatePreview();
-
-                // Setelah drag & drop, tambahkan file ke fileInput
-                const dataTransfer = new DataTransfer();
-                currentFiles.forEach(file => dataTransfer.items.add(file));
-                fileInput.files = dataTransfer.files; // Sinkronkan dengan elemen input
-            }
-
-
-
-            // Event untuk drag-and-drop
-            dropZone.addEventListener('dragover', (event) => {
-                event.preventDefault();
-                dropZone.classList.add('border-primary-600');
-            });
-
-            dropZone.addEventListener('dragleave', () => {
-                dropZone.classList.remove('border-primary-600');
-            });
-
-            dropZone.addEventListener('drop', (event) => {
-                event.preventDefault();
-                dropZone.classList.remove('border-primary-600');
-
-                const droppedFiles = event.dataTransfer.files;
-                handleFileUpload({
-                    target: {
-                        files: droppedFiles
-                    }
-                });
-            });
-
-            // Event untuk klik pada zona
-            dropZone.addEventListener('click', () => fileInput.click());
-
-            // Event untuk input file
-            fileInput.addEventListener('change', handleFileUpload);
-
-            document.getElementById('image-form').addEventListener('submit', (event) => {
-                if (currentFiles.length === 0) {
-                    event.preventDefault(); // Cegah submit
-                    showAlert('Please upload at least one image.');
-                }
-            });
-
+        document.getElementById('image3').addEventListener('change', function() {
+            previewImage(this, 'preview-image3');
         });
 
         function switchImage(newSrc, mainImageId) {
             document.getElementById(mainImageId).src = newSrc;
         }
+
+        // preview untuk update gambar
+        // Menangani semua input file dengan id dinamis
+        document.querySelectorAll('input[type="file"]').forEach((input) => {
+            input.addEventListener('change', function() {
+                // Ambil ID elemen input
+                const inputId = this.id; // Contoh: imageUpdate123
+
+                // Bangun ID elemen gambar pratinjau
+                const previewId = `preview-${inputId}`; // Jadi: preview-imageUpdate123
+
+                // Cari elemen gambar pratinjau
+                const previewImage = document.getElementById(previewId);
+
+                // Ambil file dari input
+                const file = this.files[0];
+
+                if (file && previewImage) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Set src elemen gambar dengan data file
+                        previewImage.src = e.target.result;
+                        previewImage.classList.remove('hidden'); // Tampilkan gambar
+                    };
+                    reader.readAsDataURL(file); // Membaca file sebagai Data URL
+                } else if (previewImage) {
+                    // Jika tidak ada file, sembunyikan pratinjau
+                    previewImage.src = '';
+                    previewImage.classList.add('hidden');
+                }
+            });
+        });
     </script>
 
 
