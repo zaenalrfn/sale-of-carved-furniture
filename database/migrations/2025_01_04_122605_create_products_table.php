@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Nama produk
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade'); // Kategori produk
+            $table->foreignId('category_id')->constrained('categories')->onDelete('restrict'); // Kategori produk
             $table->text('description'); // Deskripsi lengkap
             $table->string('short_description', 255); // Deskripsi singkat
             $table->string('wood_type'); // Jenis kayu
             $table->decimal('price', 10, 2); // Harga normal
+            $table->string('thumb_image');
             $table->decimal('discount_price', 10, 2)->nullable(); // Harga diskon
             $table->timestamps();
         });

@@ -41,9 +41,14 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|min:0',
             'tags' => 'nullable|string',
+            'thumb_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images' => 'required|array|size:3', // Tepat 3 file
             'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        if ($request->hasFile('thumb_image')) {
+            $thumbnailPath = $request->file('thumb_image')->store('thumbnails', 'public');
+        }
 
         if (count($request->file('images')) !== 3) {
             return back()->withErrors(['error' => 'You must upload exactly 3 images.']);
@@ -60,6 +65,7 @@ class ProductController extends Controller
                 'short_description' => $request->short_description,
                 'wood_type' => $request->wood_type,
                 'price' => $request->price,
+                'thumb_image' => $thumbnailPath ?? null,
                 'discount_price' => $request->discount_price,
             ]);
 
@@ -111,6 +117,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|min:0',
             'tags' => 'nullable|string',
+            'thumb_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -144,6 +151,17 @@ class ProductController extends Controller
                     $product->tags()->attach($tagIds);
                 }
             }
+            // handle image thumbnails 
+            if ($request->hasFile('thumb_image')) {
+                // Hapus thumbnail lama
+                if ($product->thumb_image) {
+                    Storage::disk('public')->delete($product->thumb_image);
+                }
+
+                // Simpan thumbnail baru
+                $thumbPath = $request->file('thumb_image')->store('thumbnails', 'public');
+                $product->update(['thumb_image' => $thumbPath]);
+            }
 
             // Handle new images if uploaded
             if ($request->hasFile('images')) {
@@ -151,19 +169,29 @@ class ProductController extends Controller
                     return back()->withErrors(['error' => 'Maximum 3 images allowed']);
                 }
 
-                foreach ($product->images as $image) {
-                    Storage::disk('public')->delete($image->image_path);
-                    $image->delete();
-                }
+                // Menentukan urutan gambar berdasarkan jumlah gambar yang sudah ada
+                $order = $product->images->count() + 1;
 
-                foreach ($request->file('images') as $image) {
+                foreach ($request->file('images') as $index => $image) {
+                    // Hapus gambar lama di posisi yang sama jika ada
+                    if (isset($product->images[$index])) {
+                        Storage::disk('public')->delete($product->images[$index]->image_path);
+                        $product->images[$index]->delete();
+                    }
+
+                    // Simpan gambar baru
                     $path = $image->store('product_images', 'public');
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image_path' => $path,
+                        'order' => $order, // Set urutan gambar
                     ]);
+
+                    // Increment urutan untuk gambar berikutnya
+                    $order++;
                 }
             }
+
 
             DB::commit();
             return redirect()->route('products.index')->with('success', 'Product updated successfully.');
@@ -178,6 +206,18 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        // Cek apakah kategori produk ini masih ada
+        if (!$product->category) {
+            return back()->withErrors(['error' => 'Category not found for this product.']);
+        }
+
+        try {
+            $product->delete();
+            return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to delete product: ' . $e->getMessage()]);
+        }
     }
 }

@@ -83,7 +83,9 @@
                                 <div
                                     class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                                     <div class="w-full md:w-1/2">
-                                        <form class="flex items-center">
+                                        <form class="flex items-center"
+                                            action="{{ route('products.index') }} method="GET">
+                                            @csrf
                                             <label for="simple-search" class="sr-only">Search</label>
                                             <div class="relative w-full">
                                                 <div
@@ -200,8 +202,8 @@
                                                     <td class="px-4 py-3 max-w-[12rem] truncate">
                                                         {{ $product->description }}</td>
                                                     <td class="px-4 py-3">
-                                                        @if ($product->images->isNotEmpty())
-                                                            <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
+                                                        @if ($product->thumb_image)
+                                                            <img src="{{ asset('storage/' . $product->thumb_image) }}"
                                                                 alt="Product Image" class="h-14 w-14">
                                                         @else
                                                             <span>No Image</span>
@@ -295,15 +297,31 @@
                                                                     <div class="mb-4">
                                                                         <!-- Main active image -->
                                                                         <div class="relative h-96 mb-4">
-                                                                            @if ($product->images->count() > 0)
+                                                                            @if ($product->thumb_image)
+                                                                                <img src="{{ Storage::url($product->thumb_image) }}"
+                                                                                    alt="{{ $product->name }} Thumbnail"
+                                                                                    class="w-full h-full object-cover rounded-lg active-image"
+                                                                                    id="mainImage{{ $product->id }}">
+                                                                            @elseif ($product->images->count() > 0)
                                                                                 <img src="{{ Storage::url($product->images->first()->image_path) }}"
                                                                                     alt="{{ $product->name }}"
                                                                                     class="w-full h-full object-cover rounded-lg active-image"
                                                                                     id="mainImage{{ $product->id }}">
                                                                             @endif
                                                                         </div>
-                                                                        <!-- Thumbnail images -->
+                                                                        <!-- Thumbnail and images -->
                                                                         <div class="flex gap-2 overflow-x-auto">
+                                                                            <!-- Thumbnail Button -->
+                                                                            @if ($product->thumb_image)
+                                                                                <button type="button"
+                                                                                    onclick="switchImage('{{ Storage::url($product->thumb_image) }}', 'mainImage{{ $product->id }}')"
+                                                                                    class="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden border border-gray-300">
+                                                                                    <img src="{{ Storage::url($product->thumb_image) }}"
+                                                                                        alt="{{ $product->name }} Thumbnail"
+                                                                                        class="w-full h-full object-cover">
+                                                                                </button>
+                                                                            @endif
+                                                                            <!-- Image Buttons -->
                                                                             @foreach ($product->images as $index => $image)
                                                                                 <button type="button"
                                                                                     onclick="switchImage('{{ Storage::url($image->image_path) }}', 'mainImage{{ $product->id }}')"
@@ -315,6 +333,7 @@
                                                                             @endforeach
                                                                         </div>
                                                                     </div>
+
 
                                                                     <h3 class="font-semibold">{{ $product->name }}
                                                                     </h3>
@@ -476,62 +495,76 @@
                                                                             class="text-sm text-gray-500 dark:text-gray-400 mt-1">
                                                                             Type tags and press Enter.</p>
                                                                     </div>
-
+                                                                    <!-- Image Preview & Upload -->
                                                                     <!-- Image Preview & Upload -->
                                                                     <div class="sm:col-span-2">
+                                                                        <!-- Input Thumbnail Image -->
+                                                                        <div class="mb-6">
+                                                                            <label
+                                                                                for="thumbImageUpdate{{ $product->id }}"
+                                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                                                Thumbnail Image
+                                                                            </label>
+                                                                            <input type="file"
+                                                                                id="thumbImageUpdate{{ $product->id }}"
+                                                                                name="thumb_image" accept="image/*"
+                                                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                                                            <img id="preview-thumbImageUpdate{{ $product->id }}"
+                                                                                src="{{ isset($product->thumb_image) ? asset('storage/' . $product->thumb_image) : '' }}"
+                                                                                class="mt-2 rounded-md max-h-48 {{ isset($product->thumb_image) ? '' : 'hidden' }}"
+                                                                                alt="Preview Thumbnail">
+                                                                            <p
+                                                                                class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                                                                Upload the product thumbnail image
+                                                                                (JPEG, PNG, GIF)
+                                                                                .
+                                                                            </p>
+                                                                        </div>
+
+                                                                        <!-- Input Product Images -->
                                                                         <label for="imagesUpdate"
                                                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                                                             Update Images (Max 3 Files)
                                                                         </label>
                                                                         <div id="alert-image-update"></div>
 
-                                                                        <!-- Input Gambar 1 -->
-                                                                        <div class="mb-4">
-                                                                            <label
-                                                                                for="imageUpdate{{ $product->id }}"
-                                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
-                                                                                1</label>
-                                                                            <input type="file"
-                                                                                id="imageUpdate{{ $product->id }}"
-                                                                                name="images[]" accept="image/*"
-                                                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
-                                                                            <img id="preview-imageUpdate{{ $product->id }}"
-                                                                                src="{{ $product->images[0]->image_path ?? '' }}"
-                                                                                class="mt-2 rounded-md max-h-48 {{ $product->images[0] ? '' : 'hidden' }}"
-                                                                                alt="Preview Image 1">
-                                                                        </div>
+                                                                        @foreach ($product->images->sortBy('order') as $index => $image)
+                                                                            <!-- Input Gambar -->
+                                                                            <div class="mb-4">
+                                                                                <label
+                                                                                    for="imageUpdate{{ $product->id }}_{{ $index + 1 }}"
+                                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                                                    Image {{ $index + 1 }}
+                                                                                </label>
+                                                                                <input type="file"
+                                                                                    id="imageUpdate{{ $product->id }}_{{ $index + 1 }}"
+                                                                                    name="images[]" accept="image/*"
+                                                                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                                                                <img id="preview-imageUpdate{{ $product->id }}_{{ $index + 1 }}"
+                                                                                    src="{{ isset($image->image_path) ? asset('storage/' . $image->image_path) : '' }}"
+                                                                                    class="mt-2 rounded-md max-h-48 {{ $image ? '' : 'hidden' }}"
+                                                                                    alt="Preview Image {{ $index + 1 }}">
+                                                                            </div>
+                                                                        @endforeach
 
-                                                                        <!-- Input Gambar 2 -->
-                                                                        <div class="mb-4">
-                                                                            <label
-                                                                                for="imageUpdate{{ $product->id }}"
-                                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
-                                                                                2</label>
-                                                                            <input type="file"
-                                                                                id="imageUpdate{{ $product->id }}"
-                                                                                name="images[]" accept="image/*"
-                                                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
-                                                                            <img id="preview-imageUpdate{{ $product->id }}"
-                                                                                src="{{ $product->images[1]->image_path ?? '' }}"
-                                                                                class="mt-2 rounded-md max-h-48 {{ $product->images[1] ? '' : 'hidden' }}"
-                                                                                alt="Preview Image 2">
-                                                                        </div>
-
-                                                                        <!-- Input Gambar 3 -->
-                                                                        <div class="mb-4">
-                                                                            <label
-                                                                                for="imageUpdate{{ $product->id }}"
-                                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
-                                                                                3</label>
-                                                                            <input type="file"
-                                                                                id="imageUpdate{{ $product->id }}"
-                                                                                name="images[]" accept="image/*"
-                                                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
-                                                                            <img id="preview-imageUpdate{{ $product->id }}"
-                                                                                src="{{ $product->images[2]->image_path ?? '' }}"
-                                                                                class="mt-2 rounded-md max-h-48 {{ $product->images[2] ? '' : 'hidden' }}"
-                                                                                alt="Preview Image 3">
-                                                                        </div>
+                                                                        <!-- Jika gambar kurang dari 3, tambah input untuk sisa gambar -->
+                                                                        @for ($i = count($product->images); $i < 3; $i++)
+                                                                            <!-- Input Gambar Baru -->
+                                                                            <div class="mb-4">
+                                                                                <label
+                                                                                    for="imageUpdate{{ $product->id }}_{{ $i + 1 }}"
+                                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                                                    Image {{ $i + 1 }}
+                                                                                </label>
+                                                                                <input type="file"
+                                                                                    id="imageUpdate{{ $product->id }}_{{ $i + 1 }}"
+                                                                                    name="images[]" accept="image/*"
+                                                                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                                                                <img id="preview-imageUpdate{{ $product->id }}_{{ $i + 1 }}"
+                                                                                    class="mt-2 rounded-md max-h-48 hidden"
+                                                                                    alt="Preview Image {{ $i + 1 }}">
+                                                                            </div>
+                                                                        @endfor
 
                                                                         <p
                                                                             class="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -540,6 +573,8 @@
                                                                             uploaded.
                                                                         </p>
                                                                     </div>
+
+
 
 
                                                                     <!-- Deskripsi -->
@@ -571,6 +606,53 @@
                                                                     Update product
                                                                 </button>
                                                             </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Delete modal -->
+                                                <div id="deleteModal{{ $product->id }}" tabindex="-1"
+                                                    aria-hidden="true"
+                                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                                        <!-- Modal content -->
+                                                        <div
+                                                            class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                                            <button type="button"
+                                                                class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                data-modal-toggle="deleteModal{{ $product->id }}">
+                                                                <svg aria-hidden="true" class="w-5 h-5"
+                                                                    fill="currentColor" viewbox="0 0 20 20"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                        clip-rule="evenodd" />
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                                aria-hidden="true" fill="currentColor"
+                                                                viewbox="0 0 20 20"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Yakin
+                                                                ingin hapus product {{ $product->name }}?</p>
+                                                            <div class="flex justify-center items-center space-x-4">
+                                                                <button
+                                                                    data-modal-toggle="deleteModal{{ $product->id }}"
+                                                                    type="button"
+                                                                    class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Batal</button>
+                                                                <form
+                                                                    action="{{ route('products.destroy', $product->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">Hapus</button>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -677,6 +759,19 @@
                                             <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                                         @enderror
 
+                                        {{-- image thumbnail --}}
+                                        <div class="sm:col-span-2">
+                                            <label for="thumb_image"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Thumbnail
+                                                Image</label>
+                                            <input type="file" id="thumb_image" name="thumb_image"
+                                                accept="image/*"
+                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600">
+                                            <img id="preview-thumb-image" class="mt-2 rounded-md max-h-48"
+                                                style="display: none;" />
+                                        </div>
+
+
                                         <div class="sm:col-span-2">
                                             <label for="image1"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
@@ -743,43 +838,7 @@
                     </div>
 
 
-                    <!-- Delete modal -->
-                    <div id="deleteModal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative p-4 w-full max-w-md max-h-full">
-                            <!-- Modal content -->
-                            <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                <button type="button"
-                                    class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                    data-modal-toggle="deleteModal">
-                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                                <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
-                                    aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this
-                                    item?</p>
-                                <div class="flex justify-center items-center space-x-4">
-                                    <button data-modal-toggle="deleteModal" type="button"
-                                        class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
-                                        cancel</button>
-                                    <button type="submit"
-                                        class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">Yes,
-                                        I'm sure</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -813,7 +872,7 @@
             });
         });
 
-
+        // preview gambar create product
         function previewImage(input, previewId) {
             const file = input.files[0];
             const preview = document.getElementById(previewId);
@@ -845,6 +904,10 @@
             previewImage(this, 'preview-image3');
         });
 
+        document.getElementById('thumb_image').addEventListener('change', function() {
+            previewImage(this, 'preview-thumb-image');
+        });
+
         function switchImage(newSrc, mainImageId) {
             document.getElementById(mainImageId).src = newSrc;
         }
@@ -853,28 +916,20 @@
         // Menangani semua input file dengan id dinamis
         document.querySelectorAll('input[type="file"]').forEach((input) => {
             input.addEventListener('change', function() {
-                // Ambil ID elemen input
-                const inputId = this.id; // Contoh: imageUpdate123
-
-                // Bangun ID elemen gambar pratinjau
-                const previewId = `preview-${inputId}`; // Jadi: preview-imageUpdate123
-
-                // Cari elemen gambar pratinjau
+                const inputId = this.id;
+                const previewId = `preview-${inputId}`;
                 const previewImage = document.getElementById(previewId);
 
-                // Ambil file dari input
                 const file = this.files[0];
 
                 if (file && previewImage) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        // Set src elemen gambar dengan data file
                         previewImage.src = e.target.result;
-                        previewImage.classList.remove('hidden'); // Tampilkan gambar
+                        previewImage.classList.remove('hidden');
                     };
-                    reader.readAsDataURL(file); // Membaca file sebagai Data URL
+                    reader.readAsDataURL(file);
                 } else if (previewImage) {
-                    // Jika tidak ada file, sembunyikan pratinjau
                     previewImage.src = '';
                     previewImage.classList.add('hidden');
                 }

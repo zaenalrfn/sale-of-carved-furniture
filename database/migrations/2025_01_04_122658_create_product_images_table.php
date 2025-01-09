@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Relasi ke tabel produk
             $table->string('image_path'); // Path gambar di penyimpanan
+            $table->integer('order')->default(1); // Path gambar di penyimpanan
             $table->timestamps();
         });
     }
@@ -24,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_images');
+        Schema::table('product_images', function (Blueprint $table) {
+            $table->dropColumn('order');
+        });
     }
 };

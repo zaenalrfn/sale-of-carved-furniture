@@ -16,6 +16,7 @@ class Product extends Model
         'short_description',
         'wood_type',
         'price',
+        'thumb_image',
         'discount_price',
     ];
 
