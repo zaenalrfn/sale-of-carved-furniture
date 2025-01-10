@@ -16,15 +16,27 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua produk beserta kategori, tags, dan gambar
-        $products = Product::with(['category', 'tags', 'images'])->get();
+        // Ambil kategori yang difilter
+        $categoryFilters = $request->categories;
+
+        // Jika tidak ada filter atau "all" dipilih, tampilkan semua produk
+        if (!$categoryFilters || in_array('all', $categoryFilters)) {
+            $products = Product::with(['category', 'tags', 'images'])->paginate(10);
+        } else {
+            // Filter berdasarkan kategori yang dipilih
+            $products = Product::with(['category', 'tags', 'images'])
+                ->whereIn('category_id', $categoryFilters)
+                ->paginate(10);
+        }
+
         $categories = Category::all();
         $tags = Tag::all();
-        // Return ke view
+
         return view('products', compact('products', 'categories', 'tags'));
     }
+
 
     /**
      * Store a newly created resource in storage.
