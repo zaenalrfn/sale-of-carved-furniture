@@ -131,10 +131,14 @@
                                             </button>
                                             <div id="actionsDropdown"
                                                 class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                <div class="py-1">
-                                                    <a href="#"
-                                                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
-                                                        all</a>
+                                                <div class="p-2">
+                                                    <form action="{{ route('products.destroyAll') }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="block py-2 px-4 w-full text-sm text-white bg-primary-600 rounded hover:bg-primary-700">Delete
+                                                            all</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                             <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"

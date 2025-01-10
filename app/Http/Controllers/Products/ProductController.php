@@ -244,4 +244,22 @@ class ProductController extends Controller
             return back()->withErrors(['error' => 'Failed to delete product: ' . $e->getMessage()]);
         }
     }
+    // bagian desrtroy all
+    public function destroyAll()
+    {
+        $products = Product::all();
+        foreach ($products as $product) {
+            // Hapus thumbnail
+            if ($product->thumb_image) {
+                Storage::disk('public')->delete($product->thumb_image);
+            }
+            // hapus image product
+            foreach ($product->images as $image) {
+                Storage::disk('public')->delete($image->image_path);
+                $image->delete();
+            }
+            $product->delete();
+        }
+        return redirect()->route('products.index')->with('success', 'All products deleted successfully.');
+    }
 }
