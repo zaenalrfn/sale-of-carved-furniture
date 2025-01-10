@@ -85,7 +85,6 @@
                                     <div class="w-full md:w-1/2">
                                         <form class="flex items-center"
                                             action="{{ route('products.index') }} method="GET">
-                                            @csrf
                                             <label for="simple-search" class="sr-only">Search</label>
                                             <div class="relative w-full">
                                                 <div

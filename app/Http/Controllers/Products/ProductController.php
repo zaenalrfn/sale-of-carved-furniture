@@ -212,11 +212,23 @@ class ProductController extends Controller
         if (!$product->category) {
             return back()->withErrors(['error' => 'Category not found for this product.']);
         }
-
+        DB::beginTransaction();
         try {
+            // Hapus thumbnail
+            if ($product->thumb_image) {
+                Storage::disk('public')->delete($product->thumb_image);
+            }
+            // hapus image product
+            foreach ($product->images as $image) {
+                Storage::disk('public')->delete($image->image_path);
+                $image->delete();
+            }
             $product->delete();
+
+            DB::commit();
             return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
         } catch (\Exception $e) {
+            DB::rollBack();
             return back()->withErrors(['error' => 'Failed to delete product: ' . $e->getMessage()]);
         }
     }
