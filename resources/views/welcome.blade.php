@@ -908,8 +908,10 @@
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     <div id="app">
-        <landing-page></landing-page>
-
+        {{-- navbar --}}
+        <nav-bar></nav-bar>
+        {{-- hero section --}}
+        <hero-section></hero-section>
     </div>
 </body>
 
