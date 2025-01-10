@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('landing');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'isAdmin', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'isAdmin'])->group(function () {
     // route products
     Route::resource('products', ProductController::class);
     Route::delete('products', [ProductController::class, 'destroyAll'])->name('products.destroyAll');
