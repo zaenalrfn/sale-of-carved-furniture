@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relasi ke pengguna
+            $table->foreignId('user_id')->constrained('users'); // Relasi ke pengguna
             $table->string('order_status')->default('pending'); // Status pesanan
             $table->timestamps();
         });
