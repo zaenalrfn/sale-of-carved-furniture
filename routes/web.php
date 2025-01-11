@@ -9,10 +9,17 @@ Route::get('/', function () {
     return view('welcome');
 })->name('landing');
 
+// user
+Route::get('/myaccount', function () {
+    return view('profileUser.myaccount');
+});
+
+
+// admin
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'isAdmin', 'verified'])->name('dashboard');
-
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     // route products
     Route::resource('products', ProductController::class);

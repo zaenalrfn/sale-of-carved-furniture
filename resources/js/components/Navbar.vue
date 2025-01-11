@@ -1,4 +1,15 @@
 <script setup>
+import { ref, onMounted } from "vue";
+
+const isAuthenticated = ref(false);
+
+onMounted(() => {
+  // Ambil data autentikasi dari elemen #app
+  const appElement = document.getElementById("navbar-landing-page");
+  if (appElement) {
+    isAuthenticated.value = appElement.dataset.authenticated === "true";
+  }
+});
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("myCartDropdownButton1").click();
 });
@@ -34,42 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 class="flex text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
               >
                 Home
-              </a>
-            </li>
-            <li class="shrink-0">
-              <a
-                href="#"
-                title=""
-                class="flex text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
-              >
-                Best Sellers
-              </a>
-            </li>
-            <li class="shrink-0">
-              <a
-                href="#"
-                title=""
-                class="flex text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
-              >
-                Gift Ideas
-              </a>
-            </li>
-            <li class="shrink-0">
-              <a
-                href="#"
-                title=""
-                class="text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
-              >
-                Today's Deals
-              </a>
-            </li>
-            <li class="shrink-0">
-              <a
-                href="#"
-                title=""
-                class="text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
-              >
-                Sell
               </a>
             </li>
           </ul>
@@ -175,215 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
               </div>
             </div>
-
-            <div class="grid grid-cols-2">
-              <div>
-                <a
-                  href="#"
-                  class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline"
-                  >Apple iPad Air</a
-                >
-                <p
-                  class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400"
-                >
-                  $499
-                </p>
-              </div>
-
-              <div class="flex items-center justify-end gap-6">
-                <p
-                  class="text-sm font-normal leading-none text-gray-500 dark:text-gray-400"
-                >
-                  Qty: 1
-                </p>
-
-                <button
-                  data-tooltip-target="tooltipRemoveItem2a"
-                  type="button"
-                  class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"
-                >
-                  <span class="sr-only"> Remove </span>
-                  <svg
-                    class="h-4 w-4"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-                <div
-                  id="tooltipRemoveItem2a"
-                  role="tooltip"
-                  class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-                >
-                  Remove item
-                  <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2">
-              <div>
-                <a
-                  href="#"
-                  class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline"
-                  >Apple Watch SE</a
-                >
-                <p
-                  class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400"
-                >
-                  $598
-                </p>
-              </div>
-
-              <div class="flex items-center justify-end gap-6">
-                <p
-                  class="text-sm font-normal leading-none text-gray-500 dark:text-gray-400"
-                >
-                  Qty: 2
-                </p>
-
-                <button
-                  data-tooltip-target="tooltipRemoveItem3b"
-                  type="button"
-                  class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"
-                >
-                  <span class="sr-only"> Remove </span>
-                  <svg
-                    class="h-4 w-4"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-                <div
-                  id="tooltipRemoveItem3b"
-                  role="tooltip"
-                  class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-                >
-                  Remove item
-                  <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2">
-              <div>
-                <a
-                  href="#"
-                  class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline"
-                  >Sony Playstation 5</a
-                >
-                <p
-                  class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400"
-                >
-                  $799
-                </p>
-              </div>
-
-              <div class="flex items-center justify-end gap-6">
-                <p
-                  class="text-sm font-normal leading-none text-gray-500 dark:text-gray-400"
-                >
-                  Qty: 1
-                </p>
-
-                <button
-                  data-tooltip-target="tooltipRemoveItem4b"
-                  type="button"
-                  class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"
-                >
-                  <span class="sr-only"> Remove </span>
-                  <svg
-                    class="h-4 w-4"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-                <div
-                  id="tooltipRemoveItem4b"
-                  role="tooltip"
-                  class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-                >
-                  Remove item
-                  <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2">
-              <div>
-                <a
-                  href="#"
-                  class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline"
-                  >Apple iMac 20"</a
-                >
-                <p
-                  class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400"
-                >
-                  $8,997
-                </p>
-              </div>
-
-              <div class="flex items-center justify-end gap-6">
-                <p
-                  class="text-sm font-normal leading-none text-gray-500 dark:text-gray-400"
-                >
-                  Qty: 3
-                </p>
-
-                <button
-                  data-tooltip-target="tooltipRemoveItem5b"
-                  type="button"
-                  class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"
-                >
-                  <span class="sr-only"> Remove </span>
-                  <svg
-                    class="h-4 w-4"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-                <div
-                  id="tooltipRemoveItem5b"
-                  role="tooltip"
-                  class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-                >
-                  Remove item
-                  <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-              </div>
-            </div>
-
             <a
               href="#"
               title=""
@@ -394,118 +160,140 @@ document.addEventListener("DOMContentLoaded", function () {
             </a>
           </div>
 
-          <button
-            id="userDropdownButton1"
-            data-dropdown-toggle="userDropdown1"
-            type="button"
-            class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white"
-          >
-            <svg
-              class="w-5 h-5 me-1"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                stroke-width="2"
-                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-              />
-            </svg>
-            Account
-            <svg
-              class="w-4 h-4 text-gray-900 dark:text-white ms-1"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m19 9-7 7-7-7"
-              />
-            </svg>
-          </button>
+          <!-- bagian autentikasi -->
 
-          <div
-            id="userDropdown1"
-            class="hidden z-10 w-56 divide-y divide-gray-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-gray-600 dark:bg-gray-700"
-          >
-            <ul
-              class="p-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-            >
-              <li>
-                <a
-                  href="#"
-                  title=""
-                  class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                >
-                  My Account
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  title=""
-                  class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                >
-                  My Orders
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  title=""
-                  class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                >
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  title=""
-                  class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                >
-                  Favourites
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  title=""
-                  class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                >
-                  Delivery Addresses
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  title=""
-                  class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                >
-                  Billing Data
-                </a>
-              </li>
-            </ul>
-
-            <div class="p-2 text-sm font-medium text-gray-900 dark:text-white">
+          <div v-if="!isAuthenticated" class="flex items-center gap-3">
+            <div>
               <a
-                href="#"
-                title=""
-                class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                href="/login"
+                class="bg-primary-700 hover:bg-primary-800 text-white py-2 px-3 rounded-md"
+                >Login</a
               >
-                Sign Out
-              </a>
+            </div>
+            <div>
+              <a
+                href="/register"
+                class="bg-primary-700 hover:bg-primary-800 text-white py-2 px-3 rounded-md"
+                >Register</a
+              >
+            </div>
+          </div>
+          <div v-else>
+            <button
+              id="userDropdownButton1"
+              data-dropdown-toggle="userDropdown1"
+              type="button"
+              class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white"
+            >
+              <svg
+                class="w-5 h-5 me-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-width="2"
+                  d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+              Account
+              <svg
+                class="w-4 h-4 text-gray-900 dark:text-white ms-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 9-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            <div
+              id="userDropdown1"
+              class="hidden z-10 w-56 divide-y divide-gray-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-gray-600 dark:bg-gray-700"
+            >
+              <ul
+                class="p-2 text-start text-sm font-medium text-gray-900 dark:text-white"
+              >
+                <li>
+                  <a
+                    href="/myaccount"
+                    title=""
+                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                  >
+                    My Account
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    title=""
+                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                  >
+                    My Orders
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    title=""
+                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                  >
+                    Settings
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    title=""
+                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                  >
+                    Favourites
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    title=""
+                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                  >
+                    Delivery Addresses
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    title=""
+                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                  >
+                    Billing Data
+                  </a>
+                </li>
+              </ul>
+
+              <div
+                class="p-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                <a
+                  href="#"
+                  title=""
+                  class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                >
+                  Sign Out
+                </a>
+              </div>
             </div>
           </div>
 
