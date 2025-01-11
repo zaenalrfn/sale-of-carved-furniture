@@ -21,18 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-8">
           <div class="shrink-0">
-            <a href="#" title="" class="">
-              <img
-                class="block w-auto h-8 dark:hidden"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/logo-full.svg"
-                alt=""
-              />
-              <img
-                class="hidden w-auto h-8 dark:block"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/logo-full-dark.svg"
-                alt=""
-              />
-            </a>
+            <a href="#" title="" class="text-2xl font-extrabold"> Coba shop </a>
           </div>
 
           <ul
