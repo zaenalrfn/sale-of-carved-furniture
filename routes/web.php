@@ -11,7 +11,10 @@ Route::get('/', function () {
 
 // user
 Route::get('/myaccount', function () {
-    return view('profileUser.myaccount');
+    return view('user.myaccount');
+});
+Route::get('/orders', function () {
+    return view('user.orders');
 });
 
 
