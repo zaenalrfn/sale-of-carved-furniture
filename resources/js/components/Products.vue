@@ -30,23 +30,23 @@ console.log(products.value);
         </div>
       </div>
       <div
-        v-for="product in products"
-        :key="product.id"
         class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4"
       >
         <div
+          v-for="product in products"
+          :key="product.id"
           class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
         >
           <div class="h-56 w-full">
             <a href="#">
               <img
                 class="mx-auto h-full dark:hidden"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ipad-keyboard.svg"
+                :src="'storage/' + product.thumb_image"
                 alt=""
               />
               <img
                 class="mx-auto hidden h-full dark:block"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ipad-keyboard-dark.svg"
+                :src="'storage/' + product.thumb_image"
                 alt=""
               />
             </a>
@@ -98,7 +98,7 @@ console.log(products.value);
               <p
                 class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white"
               >
-                $899
+                ${{ product.price }}
               </p>
 
               <button
