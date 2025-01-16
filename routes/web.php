@@ -3,11 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\ProductsLanding\ProductsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('landing');
+Route::get('/', [ProductsController::class, 'index'])->name('landing');
 
 // user
 Route::get('/myaccount', function () {
@@ -15,6 +14,9 @@ Route::get('/myaccount', function () {
 });
 Route::get('/orders', function () {
     return view('user.orders');
+});
+Route::get('/detail-products', function () {
+    return view('landing.detailProduct');
 });
 
 

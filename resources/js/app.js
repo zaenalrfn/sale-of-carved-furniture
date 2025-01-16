@@ -13,6 +13,7 @@ import MyAccount from "./components/MyAccount.vue";
 import Orders from "./components/Orders.vue";
 import Products from "./components/Products.vue";
 import Footer from "./components/Footer.vue";
+import detailProducts from "./components/detailProducts.vue";
 
 // Buat aplikasi Vue
 const app = createApp({});
@@ -23,6 +24,7 @@ app.component("my-account", MyAccount);
 app.component("orders", Orders);
 app.component("products", Products);
 app.component("footer-landing", Footer);
+app.component("detail-products", detailProducts);
 
 // Mount aplikasi
 app.mount("#app");

@@ -980,7 +980,7 @@
             </div>
         </section>
         {{-- bagian products --}}
-        <products></products>
+        <products :data-product='@json($products)'></products>
         {{-- bagian footer --}}
         <footer-landing></footer-landing>
     </div>

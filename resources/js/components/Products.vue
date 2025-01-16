@@ -1,5 +1,19 @@
 <script setup>
+import { ref } from "vue";
+
+// Mendefinisikan props dengan tipe Array
+const props = defineProps({
+  dataProduct: {
+    type: Array,
+    required: true,
+  },
+});
+
+// Reactive state untuk menyimpan produk
+const products = ref(props.dataProduct); // Assign props langsung
+console.log(products.value);
 </script>
+
 <template>
   <section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
     <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -16,6 +30,8 @@
         </div>
       </div>
       <div
+        v-for="product in products"
+        :key="product.id"
         class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4"
       >
         <div
@@ -47,7 +63,7 @@
             <a
               href="#"
               class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
-              >Microsoft Surface Pro, Copilot+ PC, 13 Inch</a
+              >{{ product.name }}</a
             >
 
             <div class="mt-2 flex items-center gap-2">
