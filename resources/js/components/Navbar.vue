@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-8">
           <div class="shrink-0">
-            <a href="#" title="" class="text-2xl font-extrabold"> Coba shop </a>
+            <a href="/" title="" class="text-2xl font-extrabold"> Coba shop </a>
           </div>
 
           <ul
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
           >
             <li>
               <a
-                href="#"
+                href="/"
                 title=""
                 class="flex text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
               >

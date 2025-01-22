@@ -61,7 +61,7 @@ console.log(products.value);
             </div>
 
             <a
-              href="#"
+              :href="'/detail_products/' + product.id"
               class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
               >{{ product.name }}</a
             >
