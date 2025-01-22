@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\ProductsLanding\ProductsController;
+use App\Http\Controllers\ProductsLanding\detailProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductsController::class, 'index'])->name('landing');
@@ -15,9 +16,7 @@ Route::get('/myaccount', function () {
 Route::get('/orders', function () {
     return view('user.orders');
 });
-Route::get('/detail-products', function () {
-    return view('landing.detailProduct');
-});
+Route::get('/detail_products/{id}', [detailProductController::class, 'show'])->name('detail_products');
 
 
 // admin

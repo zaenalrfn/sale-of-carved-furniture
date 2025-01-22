@@ -1,4 +1,14 @@
 <script setup>
+import { ref } from "vue";
+const props = defineProps({
+  product: {
+    type: Object,
+    required: true,
+  },
+});
+
+const detail_product = ref(props.product);
+console.log(detail_product.value);
 </script>
 
 <template>

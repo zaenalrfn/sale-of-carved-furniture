@@ -38,7 +38,7 @@ console.log(products.value);
           class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
         >
           <div class="h-56 w-full">
-            <a href="#">
+            <a :href="'/detail_products/' + product.id">
               <img
                 class="mx-auto h-full dark:hidden"
                 :src="'storage/' + product.thumb_image"
