@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api";
+axios.defaults.withCredentials = true;
 
 // Mendefinisikan props dengan tipe Array
 const props = defineProps({
@@ -12,6 +15,20 @@ const props = defineProps({
 // Reactive state untuk menyimpan produk
 const products = ref(props.dataProduct); // Assign props langsung
 console.log(products.value);
+
+// bagian cart
+const addToCart = async (productId) => {
+  try {
+    const response = await axios.post("/cart/add", {
+      product_id: productId,
+      quantity: 1,
+    });
+    alert(response.data.message);
+    console.log("Cart updated:", response.data.cartItem);
+  } catch (error) {
+    console.error("Failed to add to cart:", error);
+  }
+};
 </script>
 
 <template>
@@ -102,6 +119,7 @@ console.log(products.value);
               </p>
 
               <button
+                @click="addToCart(product.id)"
                 type="button"
                 class="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >

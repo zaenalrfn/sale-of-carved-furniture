@@ -5,6 +5,7 @@ use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\ProductsLanding\ProductsController;
 use App\Http\Controllers\ProductsLanding\detailProductController;
+use App\Http\Controllers\ProductsLanding\addToCartController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductsController::class, 'index'])->name('landing');
@@ -20,11 +21,11 @@ Route::get('/detail_products/{id}', [detailProductController::class, 'show'])->n
 
 
 // admin
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'isAdmin', 'verified'])->name('dashboard');
 Route::middleware(['auth', 'isAdmin'])->group(function () {
+    // route dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
     // route products
     Route::resource('products', ProductController::class);
     Route::delete('products', [ProductController::class, 'destroyAll'])->name('products.destroyAll');

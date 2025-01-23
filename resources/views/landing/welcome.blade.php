@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Laravel</title>
 
@@ -909,7 +910,7 @@
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     <div id="app">
         {{-- navbar --}}
-        <div id="navbar-landing-page" data-authenticated="{{ auth()->check() ? 'true' : 'false' }}">
+        <div id="navbar-landing-page" data-authenticated="{{ auth()->check() && auth()->user()->role == 'user' ? 'true' : 'false' }}">
             <nav-bar></nav-bar>
         </div>
         {{-- hero section --}}
