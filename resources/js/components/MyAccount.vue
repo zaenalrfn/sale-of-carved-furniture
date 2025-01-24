@@ -1,4 +1,12 @@
 <script setup>
+import { ref } from "vue";
+const props = defineProps({
+  dataAccount: {
+    type: Object,
+    required: true,
+  },
+});
+const dataUser = ref(props.dataAccount);
 </script>
 
 <template>
@@ -143,12 +151,12 @@
                 <span
                   class="mb-2 inline-block rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300"
                 >
-                  User
+                  {{ dataUser.role }}
                 </span>
                 <h2
                   class="flex items-center text-xl font-bold leading-none text-gray-900 dark:text-white sm:text-2xl"
                 >
-                  Helene Engels
+                  {{ dataUser.name }}
                 </h2>
               </div>
             </div>
@@ -157,7 +165,7 @@
                 Email Address
               </dt>
               <dd class="text-gray-500 dark:text-gray-400">
-                helene@example.com
+                {{ dataUser.email }}
               </dd>
             </dl>
           </div>

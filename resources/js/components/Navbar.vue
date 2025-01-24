@@ -12,6 +12,16 @@ const handleRemoveCartItem = (productId) => {
   cartStore.destoryCartItem(productId);
 };
 
+// bagian logout
+// Ambil CSRF token dari meta tag di layout utama Laravel
+const csrfToken = document
+  .querySelector('meta[name="csrf-token"]')
+  .getAttribute("content");
+const logoutForm = ref(null);
+const logout = () => {
+  logoutForm.value.submit();
+};
+
 onMounted(() => {
   // Ambil data autentikasi dari elemen #app
   const appElement = document.getElementById("navbar-landing-page");
@@ -242,63 +252,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     My Account
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="/orders"
-                    title=""
-                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >
-                    My Orders
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    title=""
-                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >
-                    Settings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    title=""
-                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >
-                    Favourites
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    title=""
-                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >
-                    Delivery Addresses
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    title=""
-                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >
-                    Billing Data
-                  </a>
-                </li>
               </ul>
 
               <div
                 class="p-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                <a
-                  href="#"
-                  title=""
-                  class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                >
-                  Sign Out
-                </a>
+                <form action="/logout" method="POST" ref="logoutForm">
+                  <input type="hidden" name="_token" :value="csrfToken" />
+                  <a
+                    href="#"
+                    title=""
+                    type="submit"
+                    @click.prevent="logout"
+                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                  >
+                    Sign Out
+                  </a>
+                </form>
               </div>
             </div>
           </div>
