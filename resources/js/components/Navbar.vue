@@ -7,6 +7,11 @@ const isAuthenticated = ref(false);
 const cartStore = useCartStore();
 const cartItems = computed(() => cartStore.cartItems);
 
+// bagian hapus cart
+const handleRemoveCartItem = (productId) => {
+  cartStore.destoryCartItem(productId);
+};
+
 onMounted(() => {
   // Ambil data autentikasi dari elemen #app
   const appElement = document.getElementById("navbar-landing-page");
@@ -121,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </p>
 
                 <button
+                  @click="handleRemoveCartItem(itemCart.id)"
                   data-tooltip-target="tooltipRemoveItem1a"
                   type="button"
                   class="text-red-600 hover:text-red-700 dark:text-red-500 dark:hover:text-red-600"

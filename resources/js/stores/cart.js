@@ -33,5 +33,22 @@ export const useCartStore = defineStore("cart", {
                 );
             }
         },
+        async destoryCartItem(productId) {
+            try {
+                const response = await axios.delete("/cart/destroy", {
+                    data: { cart_item_id: productId },
+                });
+                if (response.status === 200) {
+                    this.fetchCartItems();
+                    toast.success(`${response.data.message}`, {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                }
+            } catch (error) {
+                toast.error(`gagal hapus cart`, {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        },
     },
 });

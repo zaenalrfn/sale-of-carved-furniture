@@ -40,4 +40,29 @@ class addToCartController extends Controller
         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
         return response()->json($cartItems);
     }
+
+    // bagian destory item cart
+    public function destroyCartItems(Request $request)
+    {
+        if (!Auth::check() || Auth::user()->role !== 'user') {
+            return response()->json(['message' => 'anda tidak memiliki akses untuk menghapus item dari keranjang, silahkan login dulu'], 403);
+        }
+
+        $request->validate([
+            'cart_item_id' => 'required|exists:carts,id',
+        ]);
+
+        $cartItemId = $request->input('cart_item_id');
+
+        $cartItem = Cart::where('id', $cartItemId)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->delete();
+            return response()->json(['message' => 'Item berhasil dihapus dari keranjang']);
+        } else {
+            return response()->json(['message' => 'Item tidak ditemukan atau tidak dapat dihapus'], 404);
+        }
+    }
 }
