@@ -1,7 +1,11 @@
 <script setup>
-import { ref, onMounted } from "vue";
-
+import { useCartStore } from "../stores/cart";
+import { ref, onMounted, computed } from "vue";
 const isAuthenticated = ref(false);
+
+// bagian cart
+const cartStore = useCartStore();
+const cartItems = computed(() => cartStore.cartItems);
 
 onMounted(() => {
   // Ambil data autentikasi dari elemen #app
@@ -9,6 +13,7 @@ onMounted(() => {
   if (appElement) {
     isAuthenticated.value = appElement.dataset.authenticated === "true";
   }
+  cartStore.fetchCartItems();
 });
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("myCartDropdownButton1").click();
@@ -88,17 +93,23 @@ document.addEventListener("DOMContentLoaded", function () {
             id="myCartDropdown1"
             class="hidden z-10 mx-auto max-w-sm space-y-4 overflow-hidden rounded-lg bg-white p-4 antialiased shadow-lg dark:bg-gray-800"
           >
-            <div class="grid grid-cols-2">
+            <span v-if="cartItems.length === 0">Belum ada produk</span>
+            <div
+              v-else
+              class="grid grid-cols-2"
+              v-for="itemCart in cartItems"
+              :key="itemCart.id"
+            >
               <div>
                 <a
                   href="#"
                   class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline"
-                  >Apple iPhone 15</a
+                  >{{ itemCart.product.name }}</a
                 >
                 <p
                   class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400"
                 >
-                  $599
+                  ${{ itemCart.product.price }}
                 </p>
               </div>
 
@@ -106,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p
                   class="text-sm font-normal leading-none text-gray-500 dark:text-gray-400"
                 >
-                  Qty: 1
+                  Qty: {{ itemCart.quantity }}
                 </p>
 
                 <button
@@ -151,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           <!-- bagian autentikasi -->
 
-          <div v-if="!isAuthenticated" class="flex items-center gap-3">
+          <div v-if="!isAuthenticated" class="flex items-center gap-3 ml-2">
             <div>
               <a
                 href="/login"

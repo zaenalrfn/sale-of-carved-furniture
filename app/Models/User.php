@@ -26,6 +26,12 @@ class User extends Authenticatable
         'role',
     ];
 
+    // Relasi dengan Cart
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);  // User has many Carts
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

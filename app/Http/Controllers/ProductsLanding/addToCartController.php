@@ -14,6 +14,9 @@ class addToCartController extends Controller
     // Tambahkan produk ke cart
     public function addToCart(Request $request)
     {
+        if (!Auth::check() || Auth::user()->role !== 'user') {
+            return response()->json(['message' => 'anda tidak memiliki akses untuk add to cart, silahkan login dulu'], 403);
+        }
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
@@ -24,11 +27,11 @@ class addToCartController extends Controller
 
         // Simpan ke database
         $cartItem = Cart::updateOrCreate(
-            ['product_id' => $productId],
+            ['user_id' => Auth::id(), 'product_id' => $productId],
             ['quantity' => DB::raw("quantity + $quantity")]
         );
 
-        return response()->json(['message' => 'Product added to cart', 'cartItem' => $cartItem]);
+        return response()->json(['message' => 'produk berhasil ditambahkan ke keranjang', 'cartItem' => $cartItem]);
     }
 
     // Ambil semua item dari cart

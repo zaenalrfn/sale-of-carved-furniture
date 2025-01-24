@@ -1,8 +1,10 @@
 import "./bootstrap";
 import Alpine from "alpinejs";
 import "flowbite";
-window.Alpine = Alpine;
 import { createApp } from "vue";
+import { createPinia } from "pinia";
+import "vue3-toastify/dist/index.css";
+window.Alpine = Alpine;
 
 Alpine.start();
 
@@ -25,6 +27,7 @@ app.component("orders", Orders);
 app.component("products", Products);
 app.component("footer-landing", Footer);
 app.component("detail-products", detailProducts);
-
+// sate management pinia
+app.use(createPinia());
 // Mount aplikasi
 app.mount("#app");

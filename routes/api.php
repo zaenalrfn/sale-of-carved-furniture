@@ -9,7 +9,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // bagian api cart
-Route::middleware(['auth:sanctum', 'user'])->group(function () {
+Route::middleware(['user'])->group(function () {
     Route::post('/cart/add', [addToCartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart/items', [addToCartController::class, 'getCartItems'])->name('cart.items');
 });

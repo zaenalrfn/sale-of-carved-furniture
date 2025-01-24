@@ -39,4 +39,10 @@ class Product extends Model
     {
         return $this->hasMany(OrderDetails::class);
     }
+
+    // Relasi dengan Cart
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);  // Product can have many Carts
+    }
 }

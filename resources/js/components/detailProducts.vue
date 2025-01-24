@@ -1,14 +1,19 @@
 <script setup>
 import { ref } from "vue";
+import { useCartStore } from "../stores/cart";
 const props = defineProps({
   product: {
     type: Object,
     required: true,
   },
 });
-
 const detail_product = ref(props.product);
-console.log(detail_product.value);
+
+// bagian cart
+const cartStore = useCartStore();
+const handleAddToCart = (productId) => {
+  cartStore.addToCart(productId); // Tambahkan produk ke cart
+};
 </script>
 
 <template>
@@ -48,6 +53,7 @@ console.log(detail_product.value);
               title=""
               class="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
               role="button"
+              @click="handleAddToCart(detail_product.id)"
             >
               <svg
                 class="w-5 h-5 -ms-2 me-2"
