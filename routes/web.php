@@ -5,7 +5,9 @@ use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\ProductsLanding\ProductsController;
 use App\Http\Controllers\ProductsLanding\detailProductController;
-use App\Http\Controllers\ProductsLanding\addToCartController;
+use App\Http\Controllers\Order\OrderController;
+use App\Http\Controllers\Order\CheckoutController;
+use App\Http\Controllers\Order\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductsController::class, 'index'])->name('landing');
@@ -14,10 +16,12 @@ Route::get('/', [ProductsController::class, 'index'])->name('landing');
 Route::get('/myaccount', function () {
     return view('user.myaccount');
 });
-Route::get('/orders', function () {
-    return view('user.orders');
-});
 Route::get('/detail_products/{id}', [detailProductController::class, 'show'])->name('detail_products');
+// user checkout
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
+});
 
 
 // admin

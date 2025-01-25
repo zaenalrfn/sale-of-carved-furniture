@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('bank_name'); // Nama bank pengirim
             $table->string('payment_proof'); // Lokasi bukti pembayaran
             $table->enum('status', ['pending', 'verified', 'rejected'])->default('pending'); // Status pembayaran
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

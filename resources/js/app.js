@@ -12,10 +12,10 @@ Alpine.start();
 import Navbar from "./components/Navbar.vue";
 import HeroSection from "./components/HeroSection.vue";
 import MyAccount from "./components/MyAccount.vue";
-import Orders from "./components/Orders.vue";
 import Products from "./components/Products.vue";
 import Footer from "./components/Footer.vue";
 import detailProducts from "./components/detailProducts.vue";
+import Checkout from "./components/Checkout.vue";
 
 // Buat aplikasi Vue
 const app = createApp({});
@@ -23,10 +23,10 @@ const app = createApp({});
 app.component("nav-bar", Navbar);
 app.component("hero-section", HeroSection);
 app.component("my-account", MyAccount);
-app.component("orders", Orders);
 app.component("products", Products);
 app.component("footer-landing", Footer);
 app.component("detail-products", detailProducts);
+app.component("checkout", Checkout);
 // sate management pinia
 app.use(createPinia());
 // Mount aplikasi

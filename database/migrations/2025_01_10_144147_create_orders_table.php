@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users'); // Relasi ke pengguna
             $table->string('order_status')->default('pending'); // Status pesanan
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
